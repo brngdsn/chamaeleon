@@ -7,7 +7,7 @@ services:
       - some-chamaeleon-db
     image: chamaeleon-api
     ports:
-      - 8080:80
+      - 10000:80
     environment:
       WORDPRESS_DB_HOST: some-chamaeleon-db:3306
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}

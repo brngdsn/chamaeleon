@@ -12,15 +12,17 @@
 
     "build": "docker-compose build",
     "start": "docker-compose up",
-    "start+": "WORDPRESS_DB_PASSWORD=eg-password MYSQL_ROOT_PASSWORD=eg-password yarn start",
+    "start+": "yarn build && WORDPRESS_DB_PASSWORD=some-password MYSQL_ROOT_PASSWORD=some-password yarn start",
 
     "build:api": "docker build -t chamaeleon-api -f dockerfiles/api/Dockerfile .",
     "klean:api": "docker rm some-chamaeleon-api",
-    "api+": "docker run -it -p 10000:80 -e WORDPRESS_DB_HOST=some-chamaeleon-db:3306 -e WORDPRESS_DB_PASSWORD=eg-password --link some-chamaeleon-db --name some-chamaeleon-api chamaeleon-api",
-    "api": "docker run -d -e WORDPRESS_DB_HOST=some-chamaeleon-db:3306 -e WORDPRESS_DB_PASSWORD=eg-password --link some-chamaeleon-db --name some-chamaeleon-api chamaeleon-api",
+    "api++": "yarn klean:api && yarn api+",
+    "api+": "docker run -it -p 10000:80 -e PLUGINS=rest-api -e WORDPRESS_DB_HOST=some-chamaeleon-db:3306 -e WORDPRESS_DB_PASSWORD=eg-password --link some-chamaeleon-db --name some-chamaeleon-api chamaeleon-api",
+    "api": "docker run -d -e PLUGINS=rest-api -e WORDPRESS_DB_HOST=some-chamaeleon-db:3306 -e WORDPRESS_DB_PASSWORD=eg-password --link some-chamaeleon-db --name some-chamaeleon-api chamaeleon-api",
 
     "build:db": "docker build -t chamaeleon-db -f dockerfiles/db/Dockerfile .",
     "klean:db": "docker rm some-chamaeleon-db",
+    "db++": "yarn klean:db && yarn db+",
     "db+": "docker run -it -e MYSQL_ROOT_PASSWORD=eg-password --name some-chamaeleon-db chamaeleon-db",
     "db": "docker run -d -e MYSQL_ROOT_PASSWORD=eg-password --name some-chamaeleon-db  chamaeleon-db"
 
