@@ -10,6 +10,13 @@ Wordpress REST API v2 Stack
 
 # how-to
 
+## first-run
+
+```bash
+$ yarn build:db && yarn build:api
+```
+## startup
+
 Just use `yarn`. To quickly mount the stack with (your mariadb is immutable unless explicit unmount):
 
 ```bash
